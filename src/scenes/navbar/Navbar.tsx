@@ -17,7 +17,6 @@ export const Navbar = () => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    // Outside click yopish
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (

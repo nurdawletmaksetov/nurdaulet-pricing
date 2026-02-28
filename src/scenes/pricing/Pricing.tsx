@@ -1,6 +1,12 @@
 import {motion} from "framer-motion";
 
 export const Pricing = () => {
+    const fadeUp = {
+        initial: {opacity: 0, y: 40},
+        whileInView: {opacity: 1, y: 0},
+        transition: {duration: 0.6},
+        viewport: {once: true}
+    };
     return (
         <div id={"price"} className={"px-[12px] py-[30px] bg-primary flex flex-col items-center gap-[30px]"}>
 
@@ -16,10 +22,8 @@ export const Pricing = () => {
 
             {/** Basic */}
             <motion.div
-                initial={{opacity: 0, x: -60}}
-                whileInView={{opacity: 1, x: 0}}
-                viewport={{once: true}}
-                transition={{duration: 0.6}}
+                {...fadeUp}
+
                 className={"flex w-full justify-start"}
             >
                 <div className={"w-[290px] gap-[15px] flex flex-col p-[22px] bg-secondary rounded-[10px]"}>
@@ -36,10 +40,8 @@ export const Pricing = () => {
 
             {/** Standart */}
             <motion.div
-                initial={{opacity: 0, x: 60}}
-                whileInView={{opacity: 1, x: 0}}
-                viewport={{once: true}}
-                transition={{duration: 0.6}}
+                {...fadeUp}
+
                 className={"flex w-full justify-end"}
             >
                 <div className={"w-[290px] gap-[15px] flex flex-col p-[22px] bg-secondary rounded-[10px]"}>
@@ -57,10 +59,8 @@ export const Pricing = () => {
 
             {/** Premium */}
             <motion.div
-                initial={{opacity: 0, x: -60}}
-                whileInView={{opacity: 1, x: 0}}
-                viewport={{once: true}}
-                transition={{duration: 0.6}}
+                {...fadeUp}
+
                 className={"flex w-full justify-start"}
             >
                 <div className={"w-[290px] gap-[15px] flex flex-col p-[22px] bg-secondary rounded-[10px]"}>
@@ -79,10 +79,8 @@ export const Pricing = () => {
 
             {/** Other Services */}
             <motion.div
-                initial={{opacity: 0, x: 60}}
-                whileInView={{opacity: 1, x: 0}}
-                viewport={{once: true}}
-                transition={{duration: 0.6}}
+                {...fadeUp}
+
                 className={"flex w-full justify-end"}
             >
                 <div className={"w-[290px] gap-[15px] flex flex-col p-[22px] bg-secondary rounded-[10px]"}>
@@ -98,10 +96,8 @@ export const Pricing = () => {
 
             {/** Important */}
             <motion.div
-                initial={{opacity: 0, x: -60}}
-                whileInView={{opacity: 1, x: 0}}
-                viewport={{once: true}}
-                transition={{duration: 0.6}}
+                {...fadeUp}
+
                 className={"flex w-full justify-start"}
             >
                 <div className={"w-[290px] gap-[15px] flex flex-col p-[22px] bg-secondary rounded-[10px]"}>

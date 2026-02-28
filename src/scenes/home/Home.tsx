@@ -1,10 +1,12 @@
 import {motion} from "framer-motion";
+import banner from "@/assets/img/banner2.jpg";
 
 export const Home = () => {
     return (
         <div
             id="home"
-            className="py-[30px] bg-[url(@/assets/img/banner.JPG)] bg-cover bg-center bg-fixed flex items-center justify-center h-screen"
+            style={{backgroundImage: `url(${banner})`}}
+            className={`py-[30px] bg-cover bg-center bg-fixed flex items-center justify-center h-screen`}
         >
             <div className="flex h-full flex-col items-center justify-end gap-[32px]">
 
