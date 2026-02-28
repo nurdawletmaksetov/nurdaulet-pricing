@@ -5,6 +5,7 @@ import {About} from "@/scenes/about/About.tsx";
 import {ProjectSlide} from "@/scenes/carousel/ProjectSlide.tsx";
 import {Pricing} from "@/scenes/pricing/Pricing.tsx";
 import {Footer} from "@/scenes/footer/Footer.tsx";
+import {AudioPlayer} from "@/shared/AudioPlayer.tsx";
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
             <About/>
             <ProjectSlide/>
             <Pricing/>
+            <AudioPlayer/>
             <Footer/>
         </div>
     )

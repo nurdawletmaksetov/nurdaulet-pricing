@@ -1,5 +1,5 @@
 import {motion} from "framer-motion";
-
+import Image from "@/assets/img/banner.jpg"
 export const About = () => {
     return (
         <div
@@ -49,7 +49,7 @@ export const About = () => {
             </motion.div>
 
             <motion.img
-                src="/public/img/banner.JPG"
+                src={Image}
                 width={220}
                 height={320}
                 alt="about"

@@ -1,27 +1,28 @@
-import {ArrowLeft, ArrowRight, Pause, Play} from "lucide-react";
+import {ArrowLeft2, ArrowRight2, Stop, Play} from "iconsax-reactjs";
 import {useState, useEffect, useRef} from "react";
-import FirstMusic from '../assets/first-music.mp3'
-import SeconMusic from "../assets/second-music.mp3";
+import FirstMusic from "@/assets/first-music.mp3";
+import SecondMusic from "@/assets/second-music.mp3";
 
 export const AudioPlayer = () => {
     const tracks = [
         {
             src: FirstMusic,
-            title: "Rafael Krux - Solo Violin",
-            artist: "",
+            title: "Solo Violin",
+            artist: "Rafael Krux",
             cover:
                 "https://images.unsplash.com/photo-1511379938547-c1f69419868d?q=80&w=400&auto=format&fit=crop&crop=faces",
         },
         {
-            src: SeconMusic,
-            title: "onehoure",
-            artist: "",
+            src: SecondMusic,
+            title: "Liora",
+            artist: "Jason Fervento",
             cover:
                 "https://images.unsplash.com/photo-1511379938547-c1f69419868d?q=80&w=400&auto=format&fit=crop&crop=faces",
         },
     ];
 
-    const audioRef = useRef(null);
+    const audioRef = useRef<HTMLAudioElement | null>(null);
+
     const [index, setIndex] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
@@ -30,11 +31,16 @@ export const AudioPlayer = () => {
     const current = tracks[index];
 
     useEffect(() => {
-        if (audioRef.current) {
-            audioRef.current.src = current.src;
-            if (isPlaying) audioRef.current.play();
+        const audio = audioRef.current;
+        if (!audio) return;
+
+        audio.src = current.src;
+
+        if (isPlaying) {
+            audio.play().catch(() => {
+            });
         }
-    }, [index]);
+    }, [index, current.src]);
 
     const togglePlay = () => {
         const audio = audioRef.current;
@@ -49,7 +55,7 @@ export const AudioPlayer = () => {
         }
     };
 
-    const formatTime = (sec) => {
+    const formatTime = (sec?: number) => {
         if (!sec || isNaN(sec)) return "0:00";
         const m = Math.floor(sec / 60);
         const s = Math.floor(sec % 60).toString().padStart(2, "0");
@@ -60,29 +66,32 @@ export const AudioPlayer = () => {
         <div
             style={{
                 position: "fixed",
-                left: "12px",
-                right: "12px",
+                left: 0,
+                right: 0,
                 bottom: "12px",
-                zIndex: 9999,
+                zIndex: 50,
                 display: "flex",
                 justifyContent: "center",
+                padding: "0 12px",
+                boxSizing: "border-box",
+                pointerEvents: "none"
             }}
         >
             <div
                 style={{
-                    width: "100%",
-                    maxWidth: "980px",
                     background:
                         "linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02))",
                     backdropFilter: "blur(10px) saturate(120%)",
                     border: "1px solid rgba(255,255,255,0.06)",
                     padding: "14px 18px",
-                    borderRadius: "14px",
+                    borderRadius: "10px",
+                    width: "100%",
                     boxShadow: "0 8px 30px rgba(2,6,23,0.6)",
                     display: "flex",
                     gap: "12px",
                     alignItems: "center",
-                    position: "relative",
+                    boxSizing: "border-box",
+                    pointerEvents: "auto"
                 }}
             >
                 <div style={{width: "56px", height: "56px", borderRadius: "8px", overflow: "hidden"}}>
@@ -96,20 +105,37 @@ export const AudioPlayer = () => {
                 <div style={{flex: 1, display: "flex", flexDirection: "column", gap: "8px"}}>
                     <div style={{display: "flex", alignItems: "center", gap: "12px"}}>
                         <div>
-                            <div style={{fontWeight: 600}}>{current.title}</div>
-                            <div style={{fontSize: "13px", opacity: 0.8}}>{current.artist}</div>
+                            <div style={{fontWeight: 600, textWrap: 'wrap'}}>{current.title}</div>
+                            <div style={{fontSize: "13px", opacity: 0.8, textWrap: 'wrap'}}>{current.artist}</div>
                         </div>
 
                         <div style={{marginLeft: "auto", display: "flex", gap: "8px"}}>
-                            <button onClick={() => setIndex((index - 1 + tracks.length) % tracks.length)}><ArrowLeft/>
+                            <button
+                                onClick={() =>
+                                    setIndex((index - 1 + tracks.length) % tracks.length)
+                                }
+                            >
+                                <ArrowLeft2/>
                             </button>
-                            <button onClick={togglePlay}>{isPlaying ? <Pause/> : <Play/>}</button>
-                            <button onClick={() => setIndex((index + 1) % tracks.length)}><ArrowRight/></button>
+
+                            <button onClick={togglePlay}>
+                                {isPlaying ? <Stop/> : <Play/>}
+                            </button>
+
+                            <button
+                                onClick={() =>
+                                    setIndex((index + 1) % tracks.length)
+                                }
+                            >
+                                <ArrowRight2/>
+                            </button>
                         </div>
                     </div>
 
                     <div style={{display: "flex", gap: "10px", alignItems: "center"}}>
-                        <div style={{fontSize: "12px", opacity: 0.8}}>{formatTime(currentTime)}</div>
+                        <div style={{fontSize: "12px", opacity: 0.8}}>
+                            {formatTime(currentTime)}
+                        </div>
 
                         <div
                             style={{
@@ -118,35 +144,46 @@ export const AudioPlayer = () => {
                                 height: "6px",
                                 background: "rgba(255,255,255,0.06)",
                                 borderRadius: "999px",
-                                overflow: "hidden"
+                                overflow: "hidden",
+                                cursor: "pointer",
                             }}
                             onClick={(e) => {
-                                const rect = e.target.getBoundingClientRect();
+                                const rect = (e.currentTarget as HTMLDivElement).getBoundingClientRect();
                                 const pct = (e.clientX - rect.left) / rect.width;
-                                audioRef.current.currentTime = pct * duration;
+
+                                if (audioRef.current && duration) {
+                                    audioRef.current.currentTime = pct * duration;
+                                }
                             }}
                         >
                             <div
                                 style={{
-                                    width: `${(currentTime / duration) * 100}%`,
+                                    width: `${duration ? (currentTime / duration) * 100 : 0}%`,
                                     height: "100%",
                                     background: "linear-gradient(90deg,#7c3aed,#06b6d4)",
                                 }}
-                            ></div>
+                            />
                         </div>
 
-                        <div style={{fontSize: "12px", opacity: 0.8}}>{formatTime(duration)}</div>
+                        <div style={{fontSize: "12px", opacity: 0.8}}>
+                            {formatTime(duration)}
+                        </div>
                     </div>
                 </div>
 
                 <audio
                     ref={audioRef}
-                    onTimeUpdate={() => setCurrentTime(audioRef.current.currentTime)}
-                    onLoadedMetadata={() => setDuration(audioRef.current.duration)}
-                    onEnded={() => setIndex((index + 1) % tracks.length)}
+                    onTimeUpdate={() =>
+                        setCurrentTime(audioRef.current?.currentTime || 0)
+                    }
+                    onLoadedMetadata={() =>
+                        setDuration(audioRef.current?.duration || 0)
+                    }
+                    onEnded={() =>
+                        setIndex((index + 1) % tracks.length)
+                    }
                 />
             </div>
         </div>
     );
 };
-

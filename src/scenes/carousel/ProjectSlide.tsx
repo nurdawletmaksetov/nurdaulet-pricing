@@ -3,12 +3,18 @@ import type {EmblaCarouselType} from "embla-carousel";
 import {Carousel} from "@mantine/carousel";
 import {motion} from "framer-motion";
 
+import Slide1 from "@/assets/img/carousel.jpg";
+import Slide2 from "@/assets/img/carouselNew2.jpg";
+import Slide3 from "@/assets/img/carouselNew3.png";
+import Slide4 from "@/assets/img/carouselNew4.jpg";
+import Slide5 from "@/assets/img/carouselNew5.jpg";
+
 const slides = [
-    {image: "/img/carousel.JPG"},
-    {image: "/img/carouselNew2.JPG"},
-    {image: "/img/carouselNew3.PNG"},
-    {image: "/img/carouselNew4.JPG"},
-    {image: "/img/carouselNew5.JPG"},
+    {image: Slide1},
+    {image: Slide2},
+    {image: Slide3},
+    {image: Slide4},
+    {image: Slide5},
 ];
 
 export const ProjectSlide = () => {

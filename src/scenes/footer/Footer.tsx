@@ -45,6 +45,7 @@ export const Footer = () => {
             <p className={"font-light font-poppins text-center py-[8px] text-[10px] text-[#F1F1F1]"}>
                 designer and developer: @m_nurdawlet
             </p>
+            <div className="h-[120px]" />
         </div>
     );
 };
