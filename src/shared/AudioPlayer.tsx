@@ -83,7 +83,7 @@ export const AudioPlayer = () => {
                         "linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02))",
                     backdropFilter: "blur(10px) saturate(120%)",
                     border: "1px solid rgba(255,255,255,0.06)",
-                    padding: "14px 18px",
+                    padding: "10px 14px",
                     borderRadius: "10px",
                     width: "100%",
                     boxShadow: "0 8px 30px rgba(2,6,23,0.6)",
