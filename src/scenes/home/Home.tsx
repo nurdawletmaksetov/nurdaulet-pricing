@@ -6,7 +6,7 @@ export const Home = () => {
         <div
             id="home"
             style={{backgroundImage: `url(${banner})`}}
-            className={`py-[30px] bg-cover bg-center bg-fixed flex items-center justify-center h-screen`}
+            className="py-[30px] bg-cover bg-center flex items-center justify-center h-screen"
         >
             <div className="flex h-full flex-col items-center justify-end gap-[32px]">
 
